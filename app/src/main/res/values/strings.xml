@@ -13,7 +13,7 @@
     <string name="defaultMethod">N/A</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="action_donate">Donate</string>
-    <string name="action_report">Report</string>
+    <string name="action_report">List of Donations</string>
     <string name="goal">10000</string>
     <string name="our_goal">How much is left to our goal</string>
 
@@ -24,4 +24,6 @@
     <string name="nav_header_title">DonationX (Lab)</string>
     <string name="nav_header_subtitle">voteforhomer@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter Name</string>
 </resources>

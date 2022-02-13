@@ -65,11 +65,13 @@ class DonateFragment : Fragment() {
                 Toast.makeText(context,"Donate Amount Exceeded!",Toast.LENGTH_LONG).show()
             else {
                 val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
+                val paymentname = layout.paymentName.toString()
                 totalDonated += amount
                 layout.totalSoFar.text = "$$totalDonated"
                 layout.progressBar.progress = totalDonated
 
-                app.donationsStore.create(DonationModel(paymentmethod = paymentmethod,amount = amount))
+
+                app.donationsStore.create(DonationModel(paymentmethod = paymentmethod,amount = amount, paymentname = paymentname))
 
 
                 goal = goal - amount
@@ -88,9 +90,6 @@ class DonateFragment : Fragment() {
             requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -100,7 +99,9 @@ class DonateFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         totalDonated = app.donationsStore.findAll().sumOf { it.amount }
+        totalDonated = app.donationsStore.findAll().sumOf { it.amount }
         fragBinding.progressBar.progress = totalDonated
         fragBinding.totalSoFar.text = "$$totalDonated"
+//        fragBinding.leftToGoal.text = "$$goal"
     }
 }
