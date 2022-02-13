@@ -19,6 +19,8 @@ class DonateFragment : Fragment() {
     private val fragBinding get() = _fragBinding!!
     //lateinit var navController: NavController
 
+    var goal = 10000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = activity?.application as DonationXApp
@@ -66,7 +68,12 @@ class DonateFragment : Fragment() {
                 totalDonated += amount
                 layout.totalSoFar.text = "$$totalDonated"
                 layout.progressBar.progress = totalDonated
+
                 app.donationsStore.create(DonationModel(paymentmethod = paymentmethod,amount = amount))
+
+
+                goal = goal - amount
+                layout.leftToGoal.text = "$$goal"
             }
         }
     }
