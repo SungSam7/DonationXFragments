@@ -28,6 +28,7 @@ class DonationAdapter constructor(private var donations: List<DonationModel>)
 
         fun bind(donation: DonationModel) {
             binding.paymentamount.text = donation.amount.toString()
+            binding.paymentname.text = donation.paymentname
             binding.paymentmethod.text = donation.paymentmethod
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
         }
