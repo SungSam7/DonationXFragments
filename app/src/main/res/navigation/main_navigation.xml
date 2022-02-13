@@ -33,5 +33,17 @@
         <action
             android:id="@+id/action_aboutFragment_to_donateFragment2"
             app:destination="@id/donateFragment" />
+        <action
+            android:id="@+id/action_aboutFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="ie.wit.donationx.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
 </navigation>

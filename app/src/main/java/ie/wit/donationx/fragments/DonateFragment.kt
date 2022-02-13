@@ -97,10 +97,10 @@ class DonateFragment : Fragment() {
 
             }}}
 
-        override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-            inflater.inflate(R.menu.menu_donate, menu)
-            super.onCreateOptionsMenu(menu, inflater)
-        }
+//        override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//            inflater.inflate(R.menu.menu_donate, menu)
+//            super.onCreateOptionsMenu(menu, inflater)
+//        }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
             return NavigationUI.onNavDestinationSelected(

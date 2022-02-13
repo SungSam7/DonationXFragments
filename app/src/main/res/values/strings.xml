@@ -29,4 +29,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_marge">About Marge</string>
+
+    <string name="about_marge_family">Marge is a pround mother of 3</string>
+    <string name="bart_lisa_and_maggie">Bart, Lisa and Maggie</string>
+    <string name="about_marraige">She is also a proud wife to her husband, Homer</string>
+    <string name="google_maps">Google Maps</string>
+
+    <string name="hyperlink">\n<a href="https://simpsonswiki.com/wiki/Marge_Simpson">If you want to find out more about me, you can click here</a></string>
+
 </resources>
