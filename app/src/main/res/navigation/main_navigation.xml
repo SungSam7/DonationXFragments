@@ -22,9 +22,16 @@
         android:label="@string/action_report"
         tools:layout="@layout/fragment_report" >
         <action
-            android:id="@+id/action_reportFragment_to_donateFragment"
-            app:destination="@id/donateFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            android:id="@+id/action_reportFragment_to_aboutFragment2"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="ie.wit.donationx.fragments.AboutFragment"
+        android:label="@string/about_marge"
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_donateFragment2"
+            app:destination="@id/donateFragment" />
     </fragment>
 </navigation>

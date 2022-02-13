@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import ie.wit.donationx.R
 import ie.wit.donationx.databinding.FragmentDonateBinding
 import ie.wit.donationx.main.DonationXApp
@@ -15,6 +17,8 @@ class DonateFragment : Fragment() {
 
     lateinit var app: DonationXApp
     var totalDonated = 0
+    private lateinit var database: DatabaseReference
+
     private var _fragBinding: FragmentDonateBinding? = null
     private val fragBinding get() = _fragBinding!!
     //lateinit var navController: NavController
@@ -61,47 +65,62 @@ class DonateFragment : Fragment() {
         layout.donateButton.setOnClickListener {
             val amount = if (layout.paymentAmount.text.isNotEmpty())
                 layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
-            if(totalDonated >= layout.progressBar.max)
-                Toast.makeText(context,"Donate Amount Exceeded!",Toast.LENGTH_LONG).show()
+            if (totalDonated >= layout.progressBar.max)
+                Toast.makeText(context, "Donate Amount Exceeded!", Toast.LENGTH_LONG).show()
             else {
-                val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
+                val paymentmethod =
+                    if (layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
                 val paymentname = layout.paymentName.toString()
                 totalDonated += amount
                 layout.totalSoFar.text = "$$totalDonated"
                 layout.progressBar.progress = totalDonated
 
 
-                app.donationsStore.create(DonationModel(paymentmethod = paymentmethod,amount = amount, paymentname = paymentname))
+                app.donationsStore.create(
+                    DonationModel(
+                        paymentmethod = paymentmethod,
+                        amount = amount, paymentname = paymentname
+                    )
+                )
 
 
                 goal = goal - amount
                 layout.leftToGoal.text = "$$goal"
-            }
+
+
+                //DATABASE CODE, CAnt get it to work2
+
+//                database = FirebaseDatabase.getInstance().getReference("Donations")
+//                val DonationModel = DonationModel(id.toLong(), paymentmethod, amount, paymentname)
+//                database.child(paymentmethod).setValue(DonationModel).addOnSuccessListener {
+//                }
+
+            }}}
+
+        override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+            inflater.inflate(R.menu.menu_donate, menu)
+            super.onCreateOptionsMenu(menu, inflater)
+        }
+
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+            return NavigationUI.onNavDestinationSelected(
+                item,
+                requireView().findNavController()
+            ) || super.onOptionsItemSelected(item)
+        }
+
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _fragBinding = null
+        }
+
+        override fun onResume() {
+            super.onResume()
+            totalDonated = app.donationsStore.findAll().sumOf { it.amount }
+            totalDonated = app.donationsStore.findAll().sumOf { it.amount }
+            fragBinding.progressBar.progress = totalDonated
+            fragBinding.totalSoFar.text = "$$totalDonated"
+            fragBinding.leftToGoal.text = "$$goal"
         }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_donate, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item,
-            requireView().findNavController()) || super.onOptionsItemSelected(item)
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _fragBinding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        totalDonated = app.donationsStore.findAll().sumOf { it.amount }
-        totalDonated = app.donationsStore.findAll().sumOf { it.amount }
-        fragBinding.progressBar.progress = totalDonated
-        fragBinding.totalSoFar.text = "$$totalDonated"
-//        fragBinding.leftToGoal.text = "$$goal"
-    }
-}
